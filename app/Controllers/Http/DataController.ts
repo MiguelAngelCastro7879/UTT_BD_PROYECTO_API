@@ -4,94 +4,75 @@ import { Schema, model} from 'mongoose';
 import ModeloDatos from "App/Controllers/Http/DataController"
 
 export default class DataController {
-    
-    /**
-     * getData
-     */
-    async public getDataWithEvWeek({request}: HttpContextContract) {
-        const page = request.input('page')
-        mongoose.connect('mongodb://127.0.0.1:27017/admin_bd')
+
+    public connection() {
+        mongoose.connect('mongodb+srv://mike:starplatinum@sandbox.tbdy0.mongodb.net/db_admin?retryWrites=true&w=majority')
             .then(() => console.log('Connected!'));
+    }
 
-        const doc = ModeloDatos.dataModel.aggregate([
-            {
-                $match: {
-                    Evweek:{
-                        $gt:"0000-00-00"
-                    }
-                }
-            },{
-                $skip: (page - 1)*1000
-            },{
-                $limit: 1000
-            }
-        ]);
-
+    async public generateAggregation(query: any){
+        this.connection()
+        const doc = ModeloDatos.dataModel.aggregate(query);
         return doc;
     }
+
+    async public generateQuery(document: String){
+        const query = [
+            {
+                '$group': {
+                    '_id': document, 
+                    'count': {
+                        '$sum': 1
+                    }
+                }
+            }
+        ]
+        return await this.generateAggregation(query);
+    }
+    //1
+    async public getDataWithEvWeek({request}: HttpContextContract) {
+        return await this.generateQuery('$Evweek')
+    }
+    //2
+    async public getDataWithTech({request}: HttpContextContract) {
+        return await this.generateQuery('$Tech');
+    }
+    //3
+    async public getDataWithEvsirebreed({request}: HttpContextContract) {
+        return await this.generateQuery('$Evsirebreed');
+    }
+    //4
+    async public getDataWithBrd({request}: HttpContextContract) {
+        return await this.generateQuery('$Brd');
+    }
+    //5
+    async public getDataWithAgeda({request}: HttpContextContract) {
+        return await this.generateQuery('$Ageda');
+    }
+    //6
+    async public getDataWithBredREas({request}: HttpContextContract) {
+        return await this.generateQuery('$BredREas');
+    }
+    //7
+    async public getDataWithDate({request}: HttpContextContract) {
+        return await this.generateQuery('$Date');
+    }
+    //8
+    async public getDataWithPen({request}: HttpContextContract) {
+        return await this.generateQuery('$Pen');
+    }
+    //9
+    async public getDataWithConcepRate({request}: HttpContextContract) {
+        return await this.generateQuery('$ConcepRate');
+    }
+    //10
+    async public getDataWithBarnNm({request}: HttpContextContract) {
+        return await this.generateQuery('$BarnNm');
+    }
+
 }
 
 class ModeloDatos {
-    static dataSchema = new Schema<InData>({
-        id: { type: String },
-        NumPreg: { type: String },
-        AbortRes: { type: String },
-        SireBull: { type: String },
-        Lact: { type: String },
-        EvnL: { type: String },
-        EnEV: { type: String },
-        Date: { type: String },
-        EvGap: { type: String },
-        Tech: { type: String },
-        Pen: { type: String },
-        BredSexed: { type: String },
-        BredREas: { type: String },
-        DIME: { type: String },
-        Anld: { type: String },
-        FarmLoc: { type: String },
-        AnOwner: { type: String },
-        Brd: { type: String },
-        Ageda: { type: String },
-        Other2id: { type: String },
-        Other5id: { type: String },
-        ConcepRate: { type: String },
-        Bredunk: { type: String },
-        Evsirebreed: { type: String },
-        Evsirestudcd: { type: String },
-        Evweek: { type: String },
-        Age1blt: { type: String },
-        BarnNm: { type: String },
-    });
-    static dataModel: any = model<InData>('datos', this.dataSchema);
+    static dataSchema = new Schema();
+    static dataModel: any = model('data', this.dataSchema);
 }
-
-interface InData{
-    id: Any,
-    NumPreg: Any,
-    AbortRes: Any,
-    SireBull: Any,
-    Lact: Any,
-    EvnL: Any,
-    EnEV: Any,
-    Date: Any,
-    EvGap: Any,
-    Tech: Any,
-    Pen: Any,
-    BredSexed: Any,
-    BredREas: Any,
-    DIME: Any,
-    Anld: Any,
-    FarmLoc: Any,
-    AnOwner: Any,
-    Brd: Any,
-    Ageda: Any,
-    Other2id: Any,
-    Other5id: Any,
-    ConcepRate: Any,
-    Bredunk: Any,
-    Evsirebreed: Any,
-    Evsirestudcd: Any,
-    Evweek: Any,
-    Age1blt: Any,
-    BarnNm: Any,
-};

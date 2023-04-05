@@ -24,4 +24,13 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.post('/getDataWithEvWeek', "DataController.getDataWithEvWeek")
+Route.get('/getDataWithEvWeek', "DataController.getDataWithEvWeek")
+Route.get('/getDataWithTech', "DataController.getDataWithTech")
+Route.get('/getDataWithEvsirebreed', "DataController.getDataWithEvsirebreed")
+Route.get('/getDataWithBrd', "DataController.getDataWithBrd")
+Route.get('/getDataWithAgeda', "DataController.getDataWithAgeda")
+Route.get('/getDataWithBredREas', "DataController.getDataWithBredREas")
+Route.get('/getDataWithDate', "DataController.getDataWithDate")
+Route.get('/getDataWithPen', "DataController.getDataWithPen")
+Route.get('/getDataWithConcepRate', "DataController.getDataWithConcepRate")
+Route.get('/getDataWithBarnNm', "DataController.getDataWithBarnNm")
