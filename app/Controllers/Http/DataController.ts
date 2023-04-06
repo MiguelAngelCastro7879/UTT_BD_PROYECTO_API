@@ -30,44 +30,64 @@ export default class DataController {
         return await this.generateAggregation(query);
     }
     //1
-    async public getDataWithEvWeek({request}: HttpContextContract) {
-        return await this.generateQuery('$Evweek')
+    async public getDataWithEvWeek({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$Evweek')
+        })
     }
     //2
-    async public getDataWithTech({request}: HttpContextContract) {
-        return await this.generateQuery('$Tech');
+    async public getDataWithTech({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$Tech');
+        })
     }
     //3
-    async public getDataWithEvsirebreed({request}: HttpContextContract) {
-        return await this.generateQuery('$Evsirebreed');
+    async public getDataWithEvsirebreed({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$Evsirebreed');
+        })
     }
     //4
-    async public getDataWithBrd({request}: HttpContextContract) {
-        return await this.generateQuery('$Brd');
+    async public getDataWithBrd({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$Brd');
+        })
     }
     //5
-    async public getDataWithAgeda({request}: HttpContextContract) {
-        return await this.generateQuery('$Ageda');
+    async public getDataWithAgeda({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$Ageda');
+        })
     }
     //6
-    async public getDataWithBredREas({request}: HttpContextContract) {
-        return await this.generateQuery('$BredREas');
+    async public getDataWithBredREas({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$BredREas');
+        })
     }
     //7
-    async public getDataWithDate({request}: HttpContextContract) {
-        return await this.generateQuery('$Date');
+    async public getDataWithDate({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$Date');
+        })
     }
     //8
-    async public getDataWithPen({request}: HttpContextContract) {
-        return await this.generateQuery('$Pen');
+    async public getDataWithPen({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$Pen');
+        })
     }
     //9
-    async public getDataWithConcepRate({request}: HttpContextContract) {
-        return await this.generateQuery('$ConcepRate');
+    async public getDataWithConcepRate({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$ConcepRate');
+        })
     }
     //10
-    async public getDataWithBarnNm({request}: HttpContextContract) {
-        return await this.generateQuery('$BarnNm');
+    async public getDataWithBarnNm({request, response}: HttpContextContract) {
+        return response.json({
+            data: await this.generateQuery('$BarnNm');
+        })
     }
 
 }
